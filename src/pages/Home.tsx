@@ -1,5 +1,6 @@
 import Hero from "../components/components for home/Hero";
 import LearningCenters from "../components/components for home/LearningCenters";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
       <Header />
       <Hero />
       <LearningCenters />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -16,5 +16,3 @@ function Hero() {
 }
 
 export default Hero;
-
-// Navbar qismi tayyor bo'ldi. Hero qismini yasashni davom ettirish kerak
