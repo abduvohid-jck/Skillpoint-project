@@ -9,7 +9,7 @@ function Home() {
       <Header />
       <Hero />
       <LearningCenters />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
