@@ -58,5 +58,3 @@ function Footer() {
 }
 
 export default Footer;
-
-// Footer qismi ustida ish olib borilayapti. Qaytib kelib davom ettiramiz
