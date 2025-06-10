@@ -12,7 +12,6 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 const getCenters = async () => {
   const res = await axios.get("https://findcourse.net.uz/api/centers");
-  console.log(res.data);
   return res.data.data;
 };
 

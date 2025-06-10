@@ -1,7 +1,7 @@
 function Hero() {
   return (
     <div>
-      <h1 className="text-center mt-[115px] text-[60px] font-[500] mobile:text-[30px] mobile:mt-[55px]">
+      <h1 className="text-center mt-[215px] text-[60px] font-[500] mobile:text-[30px] mobile:mt-[135px]">
         One Search <br /> Infinite Potential
       </h1>
       <p className="text-center mt-[40px] text-[25px] mobile:text-[12.5px] mobile:px-[30px] mobile:mt-[20px]">
