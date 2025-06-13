@@ -324,7 +324,7 @@ function CenterInfo() {
                 <p className="mobile:text-[10px]">Give your rate:</p>
                 <Rating
                   value={star}
-                  onChange={(e, newValue) => setStar(newValue)}
+                  onChange={(_, newValue) => setStar(newValue)}
                 />
               </div>
               <Button
@@ -407,7 +407,7 @@ function CenterInfo() {
                           </div>
                           <Rating
                             value={editStar}
-                            onChange={(e, editValue) => setEditStar(editValue)}
+                            onChange={(_, editValue) => setEditStar(editValue)}
                           />
                         </div>
                       </div>
