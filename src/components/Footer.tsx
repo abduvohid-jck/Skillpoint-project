@@ -6,7 +6,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 
 function Footer() {
   return (
-    <div className="bg-[black] py-[30px]">
+    <div className="bg-[black] py-[30px] min-w-[440px]">
       <div className="flex items-center justify-between px-[30px] flex-row-reverse mobile:flex-col-reverse mobile:items-start mobile:gap-[30px]">
         <div className="flex items-center gap-[70px] text-[white] mobile:flex-wrap mobile:items-start mobile:gap-[50px]">
           <div className="flex flex-col gap-[10px]">

@@ -100,6 +100,12 @@ function Login() {
           >
             Login
           </button>
+          <p className="text-center mb-[10px]">
+            Don't have an account?
+            <span className="underline">
+              <Link to="/register"> Register</Link>
+            </span>
+          </p>
           <p
             onClick={handleSecondOpen}
             className="text-center underline cursor-pointer"
@@ -123,11 +129,6 @@ function Login() {
           >
             Fill blanks for creating new password:
           </Typography>
-          {/* <input
-            className="border-solid border-[1px] border-black outline-none rounded-[5px] p-[5px] w-[100%] mt-[20px] text-center"
-            type="email"
-            placeholder="Enter the email address you registered with"
-          /> */}
           <input
             className="border-solid border-[1px] border-black outline-none rounded-[5px] p-[5px] w-[100%] mt-[20px] text-center"
             type="text"

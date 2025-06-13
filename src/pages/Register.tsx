@@ -64,6 +64,15 @@ function Register() {
       .catch((res) => toast.error(res.response.data.message));
   }
 
+  function SendOTP() {
+    axios
+      .post("https://findcourse.net.uz/api/users/send-otp", {
+        email: email,
+      })
+      .then((res) => toast.success(res.data.message))
+      .catch((res) => toast.error(res.response.data.message));
+  }
+
   return (
     <div className="min-w-[440px]">
       <Link to="/">
@@ -133,6 +142,12 @@ function Register() {
           >
             Register
           </button>
+          <p className="text-center">
+            Already have an account?
+            <span className="underline">
+              <Link to="/login"> Login</Link>
+            </span>
+          </p>
         </div>
       </div>
       <Modal
@@ -161,6 +176,12 @@ function Register() {
           >
             Verify email
           </button>
+          <p className="text-center mt-[25px]">
+            Didn't receive code?{" "}
+            <span className="underline cursor-pointer" onClick={SendOTP}>
+              Resend OTP
+            </span>
+          </p>
         </Box>
       </Modal>
     </div>

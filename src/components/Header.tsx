@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import EventIcon from "@mui/icons-material/Event";
 
 function Header() {
   let token: any = localStorage.getItem("token");
@@ -43,7 +44,10 @@ function Header() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {(token == null ? ["Login", "Register"] : ["Profile"]).map((text) => (
+        {(token == null
+          ? ["Login", "Register"]
+          : ["Profile", "Appointment"]
+        ).map((text) => (
           <ListItem key={text} disablePadding>
             <Link
               to={
@@ -53,6 +57,8 @@ function Header() {
                   ? `/login`
                   : text == "Profile"
                   ? `/profile`
+                  : text == "Appointment"
+                  ? `/appointments`
                   : ``
               }
             >
@@ -64,6 +70,8 @@ function Header() {
                     <HowToReg />
                   ) : text == "Profile" ? (
                     <AccountCircle />
+                  ) : text == "Appointment" ? (
+                    <EventIcon />
                   ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -93,11 +101,15 @@ function Header() {
       <Link to="/">
         <img className="mobile:w-[60px] w-[80px]" src={Logo} alt="Logo" />
       </Link>
+      {token ? (
+        <Link className="text-[18px] mobile:hidden" to="/appointments">
+          Appointments
+        </Link>
+      ) : null}
       <div className="hidden mobile:block">
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>
-
         <SwipeableDrawer
           anchor="right"
           open={open}
