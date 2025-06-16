@@ -17,11 +17,13 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function Header() {
   let token: any = localStorage.getItem("token");
   const [open, setOpen] = React.useState(false);
+  let ceo = localStorage.getItem("role");
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -47,7 +49,12 @@ function Header() {
       <List>
         {(token == null
           ? ["Login", "Register", "Resources"]
-          : ["Profile", "Appointment" , "Resources"]
+          : [
+              "Profile",
+              "Appointment",
+              "Resources",
+              `${ceo ? "Create Center" : null}`,
+            ]
         ).map((text) => (
           <ListItem key={text} disablePadding>
             <Link
@@ -62,6 +69,8 @@ function Header() {
                   ? `/appointments`
                   : text == "Resources"
                   ? `/resources`
+                  : text == "Create Center"
+                  ? `/createcenter`
                   : ``
               }
             >
@@ -77,6 +86,8 @@ function Header() {
                     <EventIcon />
                   ) : text == "Resources" ? (
                     <DynamicFeedIcon />
+                  ) : text == "Create Center" ? (
+                    <AddCircleIcon />
                   ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -115,6 +126,11 @@ function Header() {
         <Link className="text-[18px] mobile:hidden" to="/resources">
           Resources
         </Link>
+        {ceo ? (
+          <Link className="text-[18px] mobile:hidden" to="/createcenter">
+            Create Center
+          </Link>
+        ) : null}
       </div>
 
       <div className="hidden mobile:block">

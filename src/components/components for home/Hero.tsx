@@ -1,4 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 function Hero() {
+  let token = localStorage.getItem("token");
+  let getMyData = async () => {
+    let res = await axios.get("https://findcourse.net.uz/api/users/mydata", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res;
+  };
+
+  let { data: myData } = useQuery({
+    queryKey: ["mydata"],
+    queryFn: getMyData,
+  });
+
+  if (myData?.data.data.role == "CEO") {
+    localStorage.setItem("role", myData?.data.data.role);
+  }
+
   return (
     <div>
       <h1 className="text-center mt-[215px] text-[60px] font-[500] mobile:text-[30px] mobile:mt-[135px]">

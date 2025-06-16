@@ -8,6 +8,7 @@ import CentersDetails from "./pages/CentersDetails";
 import Branches from "./pages/Branches";
 import Appointments from "./pages/Appointments";
 import Resources from "./pages/Resources";
+import CreateCenter from "./pages/CreateCenter";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/centers/:id" element={<CentersDetails />} />
         <Route path="/centers/:id/branches/:branchid" element={<Branches />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="/createcenter" element={<CreateCenter />} />
       </Routes>
     </div>
   );
