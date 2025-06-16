@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 
 function Header() {
   let token: any = localStorage.getItem("token");
@@ -45,8 +46,8 @@ function Header() {
     >
       <List>
         {(token == null
-          ? ["Login", "Register"]
-          : ["Profile", "Appointment"]
+          ? ["Login", "Register", "Resources"]
+          : ["Profile", "Appointment" , "Resources"]
         ).map((text) => (
           <ListItem key={text} disablePadding>
             <Link
@@ -59,6 +60,8 @@ function Header() {
                   ? `/profile`
                   : text == "Appointment"
                   ? `/appointments`
+                  : text == "Resources"
+                  ? `/resources`
                   : ``
               }
             >
@@ -72,6 +75,8 @@ function Header() {
                     <AccountCircle />
                   ) : text == "Appointment" ? (
                     <EventIcon />
+                  ) : text == "Resources" ? (
+                    <DynamicFeedIcon />
                   ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -101,11 +106,17 @@ function Header() {
       <Link to="/">
         <img className="mobile:w-[60px] w-[80px]" src={Logo} alt="Logo" />
       </Link>
-      {token ? (
-        <Link className="text-[18px] mobile:hidden" to="/appointments">
-          Appointments
+      <div className="flex items-center gap-[30px]">
+        {token ? (
+          <Link className="text-[18px] mobile:hidden" to="/appointments">
+            Appointments
+          </Link>
+        ) : null}
+        <Link className="text-[18px] mobile:hidden" to="/resources">
+          Resources
         </Link>
-      ) : null}
+      </div>
+
       <div className="hidden mobile:block">
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />

@@ -26,7 +26,6 @@ const style = {
   boxShadow: 24,
   p: "30px",
   borderRadius: "10px",
-
 };
 
 function CenterInfo() {
@@ -337,6 +336,7 @@ function CenterInfo() {
             {data?.data.data.comments.map((comment: any) => {
               return (
                 <div
+                  key={comment.id}
                   id={comment.id}
                   className="overflow-hidden p-[10px] mt-[20px] border-[1px] border-solid border-black rounded-[10px] shadow-[0px_10px_20px_rgba(0,0,0,0.19),0px_6px_6px_rgba(0,0,0,0.23)]"
                 >

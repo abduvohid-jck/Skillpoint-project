@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import CentersDetails from "./pages/CentersDetails";
 import Branches from "./pages/Branches";
 import Appointments from "./pages/Appointments";
+import Resources from "./pages/Resources";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/centers/:id" element={<CentersDetails />} />
         <Route path="/centers/:id/branches/:branchid" element={<Branches />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </div>
   );
