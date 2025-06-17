@@ -10,7 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import LoginIcon from "@mui/icons-material/Login";
-import { AccountCircle, HowToReg } from "@mui/icons-material";
+import { HowToReg } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 function Header() {
   let token: any = localStorage.getItem("token");
@@ -39,6 +40,13 @@ function Header() {
       setOpen(open);
     };
 
+  function Logout() {
+    localStorage.removeItem("token");
+    if (localStorage.getItem("role")) {
+      localStorage.removeItem("role");
+    }
+  }
+
   const list = () => (
     <Box
       sx={{ width: 250 }}
@@ -50,7 +58,7 @@ function Header() {
         {(token == null
           ? ["Login", "Register", "Resources"]
           : [
-              "Profile",
+              "Logout",
               "Appointment",
               "Resources",
               `${ceo ? "Create Center" : null}`,
@@ -63,25 +71,25 @@ function Header() {
                   ? "/register"
                   : text == "Login"
                   ? `/login`
-                  : text == "Profile"
-                  ? `/profile`
                   : text == "Appointment"
                   ? `/appointments`
                   : text == "Resources"
                   ? `/resources`
                   : text == "Create Center"
                   ? `/createcenter`
-                  : ``
+                  : `/login`
               }
             >
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => (text == "Logout" ? Logout() : null)}
+              >
                 <ListItemIcon>
                   {text == "Login" ? (
                     <LoginIcon />
                   ) : text == "Register" ? (
                     <HowToReg />
-                  ) : text == "Profile" ? (
-                    <AccountCircle />
+                  ) : text == "Logout" ? (
+                    <ExitToAppIcon />
                   ) : text == "Appointment" ? (
                     <EventIcon />
                   ) : text == "Resources" ? (
@@ -178,11 +186,9 @@ function Header() {
               Register
             </Button>
           </Link>
-          <Link
-            to="/profile"
-            className={`${token == null ? "hidden" : "block"}`}
-          >
+          <Link to="/login" className={`${token == null ? "hidden" : "block"}`}>
             <Button
+              onClick={() => Logout()}
               sx={{
                 border: "1px solid black",
                 color: "black",
@@ -193,8 +199,8 @@ function Header() {
               }}
               variant="outlined"
             >
-              <AccountCircle />
-              Profile
+              <ExitToAppIcon />
+              Logout
             </Button>
           </Link>
         </Stack>

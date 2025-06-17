@@ -64,9 +64,23 @@ function Login() {
         password: password,
       })
       .then((res) => {
-        localStorage.setItem("token", res.data.accessToken),
-          navigate("/"),
-          toast.success("Successfully logged in!");
+        localStorage.setItem("token", res.data.accessToken);
+
+        axios
+          .get("https://findcourse.net.uz/api/users/mydata", {
+            headers: {
+              Authorization: `Bearer ${res.data.accessToken}`,
+            },
+          })
+          .then((myDataRes) => {
+            let role = myDataRes.data.data.role;
+            if (role == "CEO") {
+              localStorage.setItem("role", role);
+            }
+
+            navigate("/");
+            toast.success("Successfully logged in!");
+          });
       })
       .catch((res) => toast.error(res.response.data.message));
   }
