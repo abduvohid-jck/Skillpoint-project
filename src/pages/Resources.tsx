@@ -1,4 +1,5 @@
 import ResourcesBoard from "../components/components for resources/ResourcesBoard";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Resources() {
@@ -6,6 +7,7 @@ function Resources() {
     <div>
       <Header />
       <ResourcesBoard />
+      <Footer />
     </div>
   );
 }

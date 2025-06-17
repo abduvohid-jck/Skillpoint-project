@@ -1,4 +1,5 @@
 import Createcenters from "../components/components for create center/Createcenterboard";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function CreateCenter() {
@@ -6,6 +7,7 @@ function CreateCenter() {
     <div>
       <Header />
       <Createcenters />
+      <Footer />
     </div>
   );
 }
