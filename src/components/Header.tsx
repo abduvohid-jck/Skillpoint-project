@@ -20,6 +20,7 @@ import EventIcon from "@mui/icons-material/Event";
 import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function Header() {
   let token: any = localStorage.getItem("token");
@@ -59,6 +60,7 @@ function Header() {
           ? ["Login", "Register", "Resources"]
           : [
               "Logout",
+              "Favorites",
               "Appointment",
               "Resources",
               `${ceo ? "Create Center" : null}`,
@@ -77,6 +79,8 @@ function Header() {
                   ? `/resources`
                   : text == "Create Center"
                   ? `/createcenter`
+                  : text == "Favorites"
+                  ? `/favorites`
                   : `/login`
               }
             >
@@ -96,6 +100,8 @@ function Header() {
                     <DynamicFeedIcon />
                   ) : text == "Create Center" ? (
                     <AddCircleIcon />
+                  ) : text == "Favorites" ? (
+                    <FavoriteIcon />
                   ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -127,9 +133,14 @@ function Header() {
       </Link>
       <div className="flex items-center gap-[30px]">
         {token ? (
-          <Link className="text-[18px] mobile:hidden" to="/appointments">
-            Appointments
-          </Link>
+          <div className="flex items-center gap-[30px]">
+            <Link className="text-[18px] mobile:hidden" to="/appointments">
+              Appointments
+            </Link>
+            <Link className="text-[18px] mobile:hidden" to="/favorites">
+              Favorites
+            </Link>
+          </div>
         ) : null}
         <Link className="text-[18px] mobile:hidden" to="/resources">
           Resources

@@ -9,23 +9,85 @@ import CardActionArea from "@mui/material/CardActionArea";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import { toast } from "react-toastify";
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const getCenters = async () => {
   const res = await axios.get("https://findcourse.net.uz/api/centers");
-  return res.data.data;
+  return res;
 };
 
 function LearningCenters() {
   let [search, setSearch] = useState("");
+  let token = localStorage.getItem("token");
 
-  const { data } = useQuery({
+  function DeleteLike(id: any) {
+    axios
+      .delete(`https://findcourse.net.uz/api/liked/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        refetch();
+        mydatarefetch();
+      })
+      .catch((res) =>
+        res.response.data.message
+          ? toast.error(res.response.data.message)
+          : toast.error(res.response.data.msg)
+      );
+  }
+
+  function PostLike(id: any) {
+    axios
+      .post(
+        "https://findcourse.net.uz/api/liked",
+        {
+          centerId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        refetch();
+        mydatarefetch();
+      })
+      .catch((res) =>
+        res.response.data.message
+          ? toast.error(res.response.data.message)
+          : toast.error(res.response.data.msg)
+      );
+  }
+
+  const { data, refetch } = useQuery({
     queryKey: ["centers"],
     queryFn: getCenters,
   });
 
-  let filteredCenters = data?.filter((center: any) =>
+  let filteredCenters = data?.data.data.filter((center: any) =>
     center.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  let getMyData = async () => {
+    let res = await axios.get("https://findcourse.net.uz/api/users/mydata", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res;
+  };
+
+  let { data: myData, refetch: mydatarefetch } = useQuery({
+    queryKey: ["mydata"],
+    queryFn: getMyData,
+  });
 
   return (
     <div className="mt-[190px] mobile:mt-[55px]">
@@ -58,13 +120,37 @@ function LearningCenters() {
           <p>Centers not found</p>
         ) : (
           filteredCenters?.map((center: any) => (
-            <Link to={`centers/${center.id}`} key={center.id}>
-              <Card
-                sx={{
-                  maxWidth: 345,
-                }}
-              >
-                <CardActionArea>
+            <Card
+              sx={{
+                maxWidth: 345,
+              }}
+              key={center.id}
+            >
+              <CardActionArea>
+                <div className="absolute">
+                  <Checkbox
+                    {...label}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    checked={myData?.data.data.likes.some(
+                      (userLikes: any) => userLikes.centerId == center.id
+                    )}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        PostLike(center.id);
+                      } else {
+                        const likeId = myData?.data.data.likes.find(
+                          (like: any) => like.centerId == center.id
+                        )?.id;
+
+                        if (likeId) {
+                          DeleteLike(likeId);
+                        }
+                      }
+                    }}
+                  />
+                </div>
+                <Link to={`centers/${center.id}`}>
                   <CardMedia
                     component="img"
                     height="140"
@@ -98,9 +184,9 @@ function LearningCenters() {
                       {center.phone}
                     </Typography>
                   </CardContent>
-                </CardActionArea>
-              </Card>
-            </Link>
+                </Link>
+              </CardActionArea>
+            </Card>
           ))
         )}
       </div>
